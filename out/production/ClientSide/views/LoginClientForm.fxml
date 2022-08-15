@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="609.0" prefWidth="829.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginClientFormController">
+   <children>
+      <Label layoutX="265.0" layoutY="58.0" prefHeight="39.0" prefWidth="300.0" text="Login to Chat Room" textAlignment="CENTER" textFill="#5900ff" underline="true">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+      <Line endX="698.0" layoutX="115.0" layoutY="41.0" startX="-100.0" strokeWidth="3.0" />
+      <Line endX="698.0" layoutX="116.0" layoutY="592.0" startX="-100.0" strokeWidth="3.0" />
+      <Line endX="-102.5" endY="-398.5" layoutX="116.0" layoutY="441.0" startX="-101.5" startY="151.0" strokeWidth="3.0" />
+      <Line endX="-102.5" endY="-398.5" layoutX="916.0" layoutY="440.0" startX="-101.5" startY="151.0" strokeWidth="3.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d3436" height="39.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="829.0" />
+      <Label layoutX="44.0" layoutY="8.0" text="Live Chat" textFill="SILVER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <FontAwesomeIconView fx:id="btnClose" fill="SILVER" glyphName="CLOSE" layoutX="802.0" layoutY="26.0" onMouseClicked="#closeWindowOnAction" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+      <FontAwesomeIconView fx:id="btnMinimize" fill="SILVER" glyphName="MINUS" layoutX="765.0" layoutY="26.0" onMouseClicked="#minimizeWindowOnAction" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="340.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/pngwing.com.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtUsername" layoutX="233.0" layoutY="360.0" onKeyPressed="#loginOnAction" prefHeight="39.0" prefWidth="239.0" promptText="Username" style="-fx-background-color: white; -fx-border-color: grey;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="490.0" layoutY="360.0" onMouseClicked="#loginToChatRoomOnAction" prefHeight="39.0" prefWidth="67.0" ripplerFill="#0002fa" style="-fx-background-color: blue;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <ImageView fitHeight="20.0" fitWidth="26.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/livechatLogo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

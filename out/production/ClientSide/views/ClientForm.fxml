@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="609.0" prefWidth="829.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d3436" height="39.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="832.0" />
+      <Label layoutX="45.0" layoutY="9.0" text="Live Chat" textFill="SILVER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <FontAwesomeIconView fx:id="btnClose" fill="SILVER" glyphName="CLOSE" layoutX="808.0" layoutY="27.0" onMouseClicked="#closeWindowOnAction" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+      <FontAwesomeIconView fx:id="btnMinimize" fill="SILVER" glyphName="MINUS" layoutX="773.0" layoutY="27.0" onMouseClicked="#minimizeWindowOnAction" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+      <ImageView fitHeight="20.0" fitWidth="26.0" layoutX="10.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/livechatLogo.png" />
+         </image>
+      </ImageView>
+      <Line endX="649.0" layoutX="123.0" layoutY="80.0" startX="-65.0" strokeWidth="3.0" />
+      <Line endX="655.0" endY="-0.878662109375" layoutX="118.0" layoutY="599.0" startX="-61.0" startY="0.121337890625" strokeWidth="3.0" />
+      <Line endX="-102.5" endY="-364.5" layoutX="159.0" layoutY="446.0" startX="-101.5" startY="151.0" strokeWidth="3.0" />
+      <Line endX="-101.5" endY="-363.5" layoutX="875.0" layoutY="445.0" startX="-101.5" startY="151.0" strokeWidth="3.0" />
+      <Label layoutX="290.0" layoutY="49.0" text="User  :- " textFill="#1900ff">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUsername" layoutX="369.0" layoutY="49.0" prefHeight="21.0" prefWidth="175.0" textFill="#1900ff">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d3436" height="39.0" layoutX="58.0" layoutY="82.0" stroke="BLACK" strokeType="INSIDE" width="714.0" />
+      <ImageView fx:id="btnBackToLogin" fitHeight="51.0" fitWidth="34.0" layoutX="67.0" layoutY="85.0" onMouseClicked="#backToLoginOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/left-arrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="343.0" layoutY="87.0" text="Play Tech Pvt Ltd." textFill="SILVER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="344.0" layoutY="107.0" text="last seen recently." textFill="SILVER">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtClientPane" editable="false" layoutX="67.0" layoutY="131.0" prefHeight="409.0" prefWidth="695.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <TextField fx:id="txtClientMessage" layoutX="67.0" layoutY="549.0" prefHeight="39.0" prefWidth="517.0" promptText="Message" style="-fx-border-radius: 50%; -fx-border-color: black; -fx-background-color: white;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <font>
+            <Font size="17.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="btnSend" buttonType="RAISED" layoutX="639.0" layoutY="552.0" onMouseClicked="#sendMessageOnAction" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #0984e3;" text="Send" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="20" />
+         </graphic>
+      </JFXButton>
+      <FontAwesomeIconView fx:id="btnImage" glyphName="CAMERA" layoutX="592.0" layoutY="577.0" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIconView>
+   </children>
+</AnchorPane>
