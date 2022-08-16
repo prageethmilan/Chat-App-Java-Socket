@@ -1,12 +1,12 @@
 package Client.controller;
 
-import Client.model.User;
 import com.jfoenix.controls.JFXButton;
-import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader;
-import com.sun.xml.internal.stream.writers.UTF8OutputStreamWriter;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,17 +17,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static Client.controller.LoginClientFormController.username;
@@ -45,6 +48,8 @@ public class ClientFormController extends Thread {
     public TextField txtClientMessage;
     public JFXButton btnSend;
     public FontAwesomeIconView btnImage;
+    public HBox hboxmessage;
+    public VBox vboxmessage;
 
     Socket socket;
     BufferedReader bufferedReader;
@@ -52,6 +57,7 @@ public class ClientFormController extends Thread {
 
     FileChooser fileChooser;
     File filePath;
+    URL url;
 
     public void initialize() {
         connectSocket();
@@ -63,7 +69,7 @@ public class ClientFormController extends Thread {
             socket = new Socket("localhost", 5000);
             System.out.println("Connect With Server");
 
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
             this.start();
@@ -92,7 +98,53 @@ public class ClientFormController extends Thread {
                 } else if (fulmsg.toString().equalsIgnoreCase("bye")) {
                     break;
                 }
-                txtClientPane.appendText(msg + "\n");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        HBox hBox = new HBox();
+                        if (!fulmsg.toString().endsWith(".png")) {
+                            hBox.setAlignment(Pos.CENTER_LEFT);
+                            hBox.setPadding(new Insets(5, 10, 5, 5));
+                            Text text = new Text(msg);
+                            TextFlow textFlow = new TextFlow(text);
+                            textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                                    + "-fx-background-color: rgb(182,182,182);" +
+                                    "-fx-background-radius: 10px");
+                            textFlow.setPadding(new Insets(5, 0, 5, 5));
+                            text.setFill(Color.color(0, 0, 0));
+                            hBox.getChildren().add(textFlow);
+                            vboxmessage.getChildren().add(hBox);
+                        }
+
+                        if (fulmsg.toString().endsWith(".png") || fulmsg.toString().endsWith(".jpg") || fulmsg.toString().endsWith(".jpeg") || fulmsg.toString().endsWith(".gif")) {
+                            System.out.println(fulmsg);
+                            hBox.setAlignment(Pos.TOP_LEFT);
+                            hBox.setPadding(new Insets(5, 10, 5, 5));
+                            Text text = new Text(cmd + " ");
+                            ImageView imageView = new ImageView();
+                            Image image = new Image(String.valueOf(fulmsg));
+                            imageView.setImage(image);
+                            imageView.setFitWidth(100);
+                            imageView.setFitHeight(100);
+                            TextFlow textFlow = new TextFlow(text,imageView);
+                            textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                                    + "-fx-background-color: rgb(182,182,182);" +
+                                    "-fx-background-radius: 10px");
+                            textFlow.setPadding(new Insets(5, 0, 5, 5));
+//                            VBox vBox1 = new VBox(textFlow);
+//                            VBox vBox2 = new VBox(imageView);
+//                            vBox1.setAlignment(Pos.CENTER_LEFT);
+//                            vBox1.setPadding(new Insets(5, 10, 5, 5));
+//                            vBox2.setAlignment(Pos.CENTER_LEFT);
+//                            vBox2.setPadding(new Insets(5, 10, 5, 5));
+                            hBox.getChildren().add(textFlow);
+//                            vboxmessage.getChildren().add(vBox1);
+//                            vboxmessage.getChildren().add(vBox2);
+                            vboxmessage.getChildren().add(hBox);
+                        }
+                    }
+                });
+                /*txtClientPane.appendText(msg + "\n");*/
             }
             bufferedReader.close();
             printWriter.close();
@@ -158,8 +210,23 @@ public class ClientFormController extends Thread {
     public void send() {
         String msg = txtClientMessage.getText();
         printWriter.println(LoginClientFormController.username + ": " + msg);
-        txtClientPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        txtClientPane.appendText("Me: " + msg + "\n");
+//        txtClientPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        Text text = new Text(msg);
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                + "-fx-background-color: rgb(15,125,242);" +
+                "-fx-background-radius: 20px");
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(0.934, 0.945, 0.996));
+        hBox.getChildren().add(textFlow);
+        vboxmessage.getChildren().add(hBox);
+        printWriter.flush();
+
+//        txtClientPane.appendText("Me: " + msg + "\n");
         txtClientMessage.setText("");
         if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
             System.exit(0);
@@ -172,11 +239,30 @@ public class ClientFormController extends Thread {
         }
     }
 
-    public void chooseImageOnAction(MouseEvent mouseEvent) {
+    public void chooseImageOnAction(MouseEvent mouseEvent) throws MalformedURLException {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a Image");
-        this.filePath = fileChooser.showOpenDialog(stage);
-        txtClientMessage.setText(filePath.getPath());
+        File file = fileChooser.showOpenDialog(stage);
+        printWriter.println(username + ": " + file.toURI().toURL());
+        /*printWriter.println(username + ": " + file.getPath());*/
+        /*txtClientMessage.setText(filePath.getPath());*/
+        if (file != null) {
+            System.out.println("File Was Selected");
+            url = file.toURI().toURL();
+            System.out.println(url);
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(5, 10, 5, 5));
+            ImageView imageView = new ImageView();
+            Image image = new Image(String.valueOf(url));
+            imageView.setImage(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            VBox vBox = new VBox(imageView);
+            vBox.setAlignment(Pos.CENTER_RIGHT);
+            vBox.setPadding(new Insets(5, 10, 5, 5));
+            vboxmessage.getChildren().add(vBox);
+        }
     }
 }

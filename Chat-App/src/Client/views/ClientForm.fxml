@@ -4,11 +4,13 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -69,11 +71,6 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <TextArea fx:id="txtClientPane" editable="false" layoutX="67.0" layoutY="131.0" prefHeight="409.0" prefWidth="695.0" style="-fx-background-color: white; -fx-border-color: black;">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
       <TextField fx:id="txtClientMessage" layoutX="67.0" layoutY="549.0" onKeyPressed="#sendMessageByKeyOnAction" prefHeight="39.0" prefWidth="517.0" promptText="Message" style="-fx-border-radius: 50%; -fx-border-color: black; -fx-background-color: white;">
          <cursor>
             <Cursor fx:constant="TEXT" />
@@ -98,5 +95,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </FontAwesomeIconView>
+      <ScrollPane layoutX="69.0" layoutY="128.0" prefHeight="407.0" prefWidth="689.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <content>
+            <HBox fx:id="hboxmessage" prefHeight="39.0" prefWidth="685.0">
+               <children>
+                  <VBox fx:id="vboxmessage" prefHeight="46.0" prefWidth="702.0" />
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
