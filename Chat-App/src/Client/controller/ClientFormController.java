@@ -5,7 +5,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -102,10 +100,11 @@ public class ClientFormController extends Thread {
                     @Override
                     public void run() {
                         HBox hBox = new HBox();
-                        if (!fulmsg.toString().endsWith(".png")) {
+                        if (!fulmsg.toString().endsWith(".png") || !fulmsg.toString().endsWith(".jpg") || !fulmsg.toString().endsWith(".jpeg") || !fulmsg.toString().endsWith(".gif")) {
                             hBox.setAlignment(Pos.CENTER_LEFT);
                             hBox.setPadding(new Insets(5, 10, 5, 5));
                             Text text = new Text(msg);
+                            text.setStyle("-fx-font-size: 25px");
                             TextFlow textFlow = new TextFlow(text);
                             textFlow.setStyle("-fx-color:rgb(239,242,255);"
                                     + "-fx-background-color: rgb(182,182,182);" +
@@ -121,12 +120,13 @@ public class ClientFormController extends Thread {
                             hBox.setAlignment(Pos.TOP_LEFT);
                             hBox.setPadding(new Insets(5, 10, 5, 5));
                             Text text = new Text(cmd + " ");
+                            text.setStyle("-fx-font-size: 25px");
                             ImageView imageView = new ImageView();
                             Image image = new Image(String.valueOf(fulmsg));
                             imageView.setImage(image);
                             imageView.setFitWidth(100);
                             imageView.setFitHeight(100);
-                            TextFlow textFlow = new TextFlow(text,imageView);
+                            TextFlow textFlow = new TextFlow(text, imageView);
                             textFlow.setStyle("-fx-color:rgb(239,242,255);"
                                     + "-fx-background-color: rgb(182,182,182);" +
                                     "-fx-background-radius: 10px");
@@ -216,6 +216,7 @@ public class ClientFormController extends Thread {
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
         Text text = new Text(msg);
+        text.setStyle("-fx-font-size: 20px");
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-color:rgb(239,242,255);"
                 + "-fx-background-color: rgb(15,125,242);" +
@@ -244,7 +245,9 @@ public class ClientFormController extends Thread {
         fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a Image");
         File file = fileChooser.showOpenDialog(stage);
-        printWriter.println(username + ": " + file.toURI().toURL());
+        if (file != null) {
+            printWriter.println(username + ": " + file.toURI().toURL());
+        }
         /*printWriter.println(username + ": " + file.getPath());*/
         /*txtClientMessage.setText(filePath.getPath());*/
         if (file != null) {
